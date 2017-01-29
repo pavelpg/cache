@@ -1,5 +1,6 @@
 package twolevelcache;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,13 +9,16 @@ import java.util.Map;
  */
 public class BaseCache implements ICache,IDatasource,ICacheControl {
     private BaseCacheEntryFactory cacheEntryFactory;
-    protected Map<String,CacheEntry> container;
-    private IDatasource ds;
+    protected Map<String,BaseCacheEntry> container = new HashMap<>();
+    private String name;
+    private IDatasource ds; 
     @Override
     public Object get(String key) {
         if(container.containsKey(key)){
-            return container.get(key);
+            System.out.println("hit "+name+": "+key);
+            return container.get(key).get();
         }else{
+            System.out.println("miss "+name+": "+key);
             Object value = ds.get(key);
             beforePutEntry();
             container.put(key, new CacheEntry(value));
@@ -29,7 +33,7 @@ public class BaseCache implements ICache,IDatasource,ICacheControl {
     }
 
     @Override
-    public Map<String, CacheEntry> getCacheMap() {
+    public Map<String, BaseCacheEntry> getCacheMap() {
         return container;
     }
 
@@ -37,6 +41,9 @@ public class BaseCache implements ICache,IDatasource,ICacheControl {
     }
 
     /**
+     * 
+     * 
+     * 
      * @return the cacheEntryFactory
      */
     public BaseCacheEntryFactory getCacheEntryFactory() {
@@ -48,6 +55,20 @@ public class BaseCache implements ICache,IDatasource,ICacheControl {
      */
     public void setCacheEntryFactory(BaseCacheEntryFactory cacheEntryFactory) {
         this.cacheEntryFactory = cacheEntryFactory;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     
 }
