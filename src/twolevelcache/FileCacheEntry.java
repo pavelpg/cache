@@ -32,7 +32,7 @@ public class FileCacheEntry extends BaseCacheEntry {
     public Object get(){
         ObjectInputStream ois = null;
         try {
-            super.get();
+            super.get(); //todo: later fix bad design
             FileInputStream fin = new FileInputStream(file);
             ois = new ObjectInputStream(fin);
             return ois.readObject();

@@ -7,6 +7,7 @@ import java.util.Map;
  * @author Pavel
  */
 public class BaseCache implements ICache,IDatasource,ICacheControl {
+    private BaseCacheEntryFactory cacheEntryFactory;
     protected Map<String,CacheEntry> container;
     private IDatasource ds;
     @Override
@@ -33,6 +34,20 @@ public class BaseCache implements ICache,IDatasource,ICacheControl {
     }
 
     protected void beforePutEntry() {
+    }
+
+    /**
+     * @return the cacheEntryFactory
+     */
+    public BaseCacheEntryFactory getCacheEntryFactory() {
+        return cacheEntryFactory;
+    }
+
+    /**
+     * @param cacheEntryFactory the cacheEntryFactory to set
+     */
+    public void setCacheEntryFactory(BaseCacheEntryFactory cacheEntryFactory) {
+        this.cacheEntryFactory = cacheEntryFactory;
     }
     
 }

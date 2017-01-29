@@ -21,7 +21,7 @@ public abstract class BaseCacheEntry {
     public Object get(){
         lastReadTs = System.currentTimeMillis();
         count ++;
-        return null; // bad design
+        return null; // todo: later fix bad design
     }
 
     public long getCreatedTs() {

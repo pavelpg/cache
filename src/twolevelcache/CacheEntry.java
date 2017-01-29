@@ -12,7 +12,7 @@ package twolevelcache;
 public class CacheEntry extends BaseCacheEntry {
     private Object value;
     public Object get(){
-        super.get();
+        super.get(); // todo: later fix bad design
         return value;
     }
     public CacheEntry(Object o){
