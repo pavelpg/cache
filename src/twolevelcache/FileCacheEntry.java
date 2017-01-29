@@ -3,8 +3,10 @@ package twolevelcache;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +16,18 @@ import java.util.logging.Logger;
  */
 public class FileCacheEntry extends BaseCacheEntry {
     File file;
+    public FileCacheEntry(Object o){
+        super();
+        try {
+            file = File.createTempFile("cache", "");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(o);
+        } catch (IOException ex) {
+            Logger.getLogger(FileCacheEntry.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     @Override 
     public Object get(){
         ObjectInputStream ois = null;

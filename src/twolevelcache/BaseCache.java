@@ -7,7 +7,7 @@ import java.util.Map;
  * @author Pavel
  */
 public class BaseCache implements ICache,IDatasource,ICacheControl {
-    private Map<String,CacheEntry> container;
+    protected Map<String,CacheEntry> container;
     private IDatasource ds;
     @Override
     public Object get(String key) {
@@ -32,7 +32,7 @@ public class BaseCache implements ICache,IDatasource,ICacheControl {
         return container;
     }
 
-    private void beforePutEntry() {
+    protected void beforePutEntry() {
     }
     
 }
