@@ -29,7 +29,7 @@ public class LimitedSizeCache extends BaseCache{
     @Override
     protected void beforePutEntry(){
         if(getPolicy() != null){
-            while(container.size() >= maxSize){
+            while(container.size() >= maxSize - 1){
                 String key = getPolicy().getKeyDeleteCandidate(this);
                 if(key != null){
                     container.get(key).dispose();

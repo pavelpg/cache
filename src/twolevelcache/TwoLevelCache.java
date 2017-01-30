@@ -11,7 +11,8 @@ public class TwoLevelCache {
      */
     public static void main(String[] args) {
         LimitedSizeCache cache1,cache2;
-        ICachePolicy policy = new DeleteRandomCachePolicy();
+        // second level cache settings
+        ICachePolicy policy = new DeleteFirstCachePolicy(), policy2 = new LruCachePolicy();
         cache2 = new LimitedSizeCache();
         cache2.setDatasource(new IDatasource() {
             @Override
@@ -21,7 +22,7 @@ public class TwoLevelCache {
             }
         });
         cache2.setMaxSize(4);
-        cache2.setPolicy(policy);
+        cache2.setPolicy(policy2);
         cache2.setName("cache2");
         cache2.setCacheEntryFactory(new BaseCacheEntryFactory() {
             @Override
@@ -29,7 +30,7 @@ public class TwoLevelCache {
                 return new FileCacheEntry(v);
             }
         });
-        
+        // first level cache settings
         cache1 = new LimitedSizeCache();
         cache1.setDatasource(cache2);
         cache1.setMaxSize(2);
@@ -53,6 +54,12 @@ public class TwoLevelCache {
         System.out.println(cache1.get("222"));
         System.out.println(cache1.get("333"));
         System.out.println(cache1.get("333"));
+        System.out.println(cache1.get("444"));
+        System.out.println(cache1.get("444"));
+        System.out.println(cache1.get("555"));
+        System.out.println(cache1.get("555"));
+        System.out.println(cache1.get("666"));
+        System.out.println(cache1.get("666"));
     }
     
 }

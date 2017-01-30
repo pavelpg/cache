@@ -6,7 +6,7 @@ import java.util.Map;
  *
  * @author Павел
  */
-public class DeleteRandomCachePolicy implements ICachePolicy{
+public class DeleteFirstCachePolicy implements ICachePolicy{
 
     @Override
     public String getKeyDeleteCandidate(ICacheControl cache) {
